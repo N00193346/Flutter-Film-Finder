@@ -1,6 +1,7 @@
 import 'package:film_finder/constants.dart';
 import 'package:film_finder/results_page.dart';
 import 'package:flutter/material.dart';
+import 'package:film_finder/results_page.dart';
 
 class InputPage extends StatefulWidget {
   @override

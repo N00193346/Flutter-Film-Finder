@@ -1,4 +1,5 @@
 import 'package:film_finder/constants.dart';
+import 'package:film_finder/loading_screen.dart';
 import 'package:film_finder/results_page.dart';
 import 'package:flutter/material.dart';
 import 'package:film_finder/results_page.dart';
@@ -30,7 +31,6 @@ class _InputPageState extends State<InputPage> {
               onChanged: (value) {
                 //Change the value of the user's input to what is typed in the search bar
                 userInput = value;
-                print(userInput);
               },
             ),
           ),
@@ -39,7 +39,7 @@ class _InputPageState extends State<InputPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) {
-                  return ResultsPage(userInput);
+                  return LoadingScreen(userInput);
                 }),
               );
             },

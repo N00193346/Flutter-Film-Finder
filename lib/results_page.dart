@@ -4,17 +4,33 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class ResultsPage extends StatefulWidget {
-  ResultsPage(this.userInput);
+  ResultsPage(this.filmData);
 
-  final String userInput;
-
-  String imageUrl = 'https://image.tmdb.org/t/p/w500';
+  final filmData;
 
   @override
   _ResultsPageState createState() => _ResultsPageState();
 }
 
 class _ResultsPageState extends State<ResultsPage> {
+  var title;
+  var year;
+  var poster;
+
+  String imageUrl = 'https://image.tmdb.org/t/p/w500';
+
+  void initState() {
+    super.initState();
+    updateUi(widget.filmData);
+  }
+
+  void updateUi(dynamic filmData) {
+//Decoding the JSON file and passing to variables
+    title = filmData['results'][0]['original_title'];
+    year = filmData['results'][0]['release_date'];
+    poster = filmData['results'][0]['poster_path'];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,11 +43,11 @@ class _ResultsPageState extends State<ResultsPage> {
         child: Column(
           children: [
             Text(
-              'Film Title',
+              '$title',
               style: TextStyle(color: Colors.white, fontSize: 32),
             ),
             Image.network(
-              'https://m.media-amazon.com/images/M/MV5BNzA1Njg4NzYxOV5BMl5BanBnXkFtZTgwODk5NjU3MzI@._V1_.jpg',
+              '$imageUrl$poster',
               height: 350,
             ),
           ],

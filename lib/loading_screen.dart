@@ -1,7 +1,6 @@
 import 'package:film_finder/results_page.dart';
 import 'package:flutter/material.dart';
 import 'package:film_finder/film.dart';
-import 'dart:convert';
 
 class LoadingScreen extends StatefulWidget {
   //Using a constructor to take in the user's input from the last screen

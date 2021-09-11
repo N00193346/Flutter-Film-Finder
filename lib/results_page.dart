@@ -15,6 +15,7 @@ class ResultsPage extends StatefulWidget {
 class _ResultsPageState extends State<ResultsPage> {
   var title;
   var year;
+  var yearSub;
   var poster;
 
   String imageUrl = 'https://image.tmdb.org/t/p/w500';
@@ -28,6 +29,7 @@ class _ResultsPageState extends State<ResultsPage> {
 //Decoding the JSON file and passing to variables
     title = filmData['results'][0]['original_title'];
     year = filmData['results'][0]['release_date'];
+    yearSub = year.substring(0, 4);
     poster = filmData['results'][0]['poster_path'];
   }
 
@@ -43,7 +45,7 @@ class _ResultsPageState extends State<ResultsPage> {
         child: Column(
           children: [
             Text(
-              '$title',
+              '$title ($yearSub)',
               style: TextStyle(color: Colors.white, fontSize: 32),
             ),
             Image.network(

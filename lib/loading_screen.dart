@@ -1,6 +1,6 @@
 import 'package:film_finder/results_page.dart';
 import 'package:flutter/material.dart';
-import 'package:film_finder/film.dart';
+import 'package:film_finder/film_data.dart';
 
 class LoadingScreen extends StatefulWidget {
   //Using a constructor to take in the user's input from the last screen
@@ -20,7 +20,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   Future getFilm(userInput) async {
     //Creating a new film object
-    Film film = Film(userInput);
+    FilmData film = FilmData(userInput);
     //Using get film data method to store
     var filmData = await film.getFilmData();
 

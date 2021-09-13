@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:film_finder/film.dart';
+import 'package:film_finder/single_film.dart';
 
 class ResultsPage extends StatefulWidget {
   ResultsPage(this.filmData);
@@ -76,18 +77,35 @@ class _ResultsPageState extends State<ResultsPage> {
         child: ListView.builder(
           itemCount: widget.filmData == null ? 0 : widget.filmData.length,
           itemBuilder: (BuildContext context, i) {
-            return Column(children: [
-              Text(widget.filmData['results'][i]['original_title'],
-                  style: TextStyle(color: Colors.white, fontSize: 32)),
-              Text(
-                  '(' +
-                      widget.filmData['results'][i]['release_date']
-                          .substring(0, 4) +
-                      ')',
-                  style: TextStyle(color: Colors.white, fontSize: 32)),
-              Image.network(
-                  '$imageUrl' + widget.filmData['results'][i]['poster_path'])
-            ]);
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      //Pushing all the films information to the next page if the user press on the movie
+                      return SingleFilm(
+                          widget.filmData['results'][i]['original_title'],
+                          widget.filmData['results'][i]['release_date'],
+                          widget.filmData['results'][i]['overview'],
+                          widget.filmData['results'][i]['poster_path']);
+                    },
+                  ),
+                );
+              },
+              child: Column(children: [
+                Text(widget.filmData['results'][i]['original_title'],
+                    style: TextStyle(color: Colors.white, fontSize: 32)),
+                Text(
+                    '(' +
+                        widget.filmData['results'][i]['release_date']
+                            .substring(0, 4) +
+                        ')',
+                    style: TextStyle(color: Colors.white, fontSize: 32)),
+                Image.network(
+                    '$imageUrl' + widget.filmData['results'][i]['poster_path'])
+              ]),
+            );
           },
         ),
       ),

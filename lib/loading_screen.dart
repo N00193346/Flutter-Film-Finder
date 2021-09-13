@@ -25,9 +25,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
     var filmData = await film.getFilmData();
 
     //Pushing the film data to the results page
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return ResultsPage(filmData);
-    }));
+    if (filmData != null) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return ResultsPage(filmData);
+      }));
+    } else {
+      Navigator.pop(context);
+    }
   }
 
   Widget build(BuildContext context) {

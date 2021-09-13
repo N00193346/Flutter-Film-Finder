@@ -75,7 +75,10 @@ class _ResultsPageState extends State<ResultsPage> {
         padding: EdgeInsets.all(20),
         alignment: Alignment.center,
         child: ListView.builder(
-          itemCount: widget.filmData == null ? 0 : widget.filmData.length,
+          //Check to see if there is any results, if there is, loop as long as the results
+          itemCount: widget.filmData['results'] == null
+              ? 0
+              : widget.filmData['results'].length,
           itemBuilder: (BuildContext context, i) {
             return GestureDetector(
               onTap: () {

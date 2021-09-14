@@ -23,6 +23,7 @@ class _InputPageState extends State<InputPage> {
         children: [
           Container(
             padding: EdgeInsets.all(20),
+            //TextField for the user to enter the film they would like to search for
             child: TextField(
               style: TextStyle(
                 color: Colors.black,
@@ -35,6 +36,7 @@ class _InputPageState extends State<InputPage> {
             ),
           ),
           TextButton(
+            //When the search button is pressed, the user's input will be pushed onto the loading screen
             onPressed: () {
               Navigator.push(
                 context,

@@ -18,12 +18,15 @@ class SingleFilm extends StatelessWidget {
         body: Container(
           padding: EdgeInsets.all(20),
           alignment: Alignment.center,
+          //Creating a column to display the film data to the user
           child: Column(
             children: [
+              //Film Title
               Text(
                 '$title',
                 style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
               ),
+              //Film Image/Poster
               Image.network(
                 '$imageUrl' + '$poster',
                 height: 350,

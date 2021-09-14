@@ -6,7 +6,6 @@ class ResultsPage extends StatefulWidget {
   ResultsPage(this.filmData);
 
   final filmData;
-  List<Column> films = [];
 
   @override
   _ResultsPageState createState() => _ResultsPageState();
@@ -18,15 +17,18 @@ class _ResultsPageState extends State<ResultsPage> {
   var yearSub;
   var poster;
 
+  //The first part of the url is stored in variable as the API JSON only stores the second half
   String imageUrl = 'https://image.tmdb.org/t/p/w500';
 
   void initState() {
     super.initState();
 
     updateUi(widget.filmData);
-    getFilms();
+    // getFilms();
   }
 
+  //A method that loops through the API results, creates a film object and add the results to a film array
+  //This method is is not need with a ListView builder
   // Future<List<Film>> getFilms() async {
   //   var filmData = widget.filmData;
   //
@@ -42,19 +44,7 @@ class _ResultsPageState extends State<ResultsPage> {
   //   return films;
   // }
 
-  Future<List<Film>> getFilms() async {
-    var filmData = widget.filmData;
-
-    List<Film> films = [];
-    for (var f in filmData) {
-      Film film =
-          Film(f['original_title'], f['release_date'], f['poster_path']);
-      films.add(film);
-    }
-    print(films.length);
-    return films;
-  }
-
+  //This function was used to test decoding the data from the JSON
   void updateUi(dynamic filmData) {
 //Decoding the JSON file and passing to variables
     title = filmData['results'][0]['original_title'];
@@ -104,6 +94,7 @@ class _ResultsPageState extends State<ResultsPage> {
                     : Text('null value',
                         style: TextStyle(color: Colors.white, fontSize: 30)),
                 //Release Data
+                //The release date in the JSON doesn't contain any nulls, only empty strings
                 widget.filmData['results'][i]['release_date'] != ''
                     ? Text(
                         '(' +
@@ -114,21 +105,23 @@ class _ResultsPageState extends State<ResultsPage> {
                     : Text('null value'),
                 //Image
                 widget.filmData['results'][i]['poster_path'] != null
+                    //The first and second parts of the url need to be concatenated to display the image
                     ? Image.network(
                         '$imageUrl' +
                             widget.filmData['results'][i]['poster_path'],
                         height: 350,
                       )
+                    //This sized box will be used if a film has no image attached to it
                     : SizedBox(
                         height: 350,
                         child: Text('No related image'),
                       ),
+                //This sized box will be used to create some space between the film displayed
                 SizedBox(
                   height: 30,
                 )
               ]),
             );
-            //Else if it does not contain a poster
           },
         ),
       ),

@@ -1,6 +1,7 @@
 import 'package:film_finder/results_page.dart';
 import 'package:flutter/material.dart';
 import 'package:film_finder/film_data.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class LoadingScreen extends StatefulWidget {
   //Using a constructor to take in the user's input from the last screen
@@ -35,6 +36,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: Center(
+        child: SpinKitDoubleBounce(
+          color: Colors.white,
+          size: 100,
+        ),
+      ),
+    );
   }
 }

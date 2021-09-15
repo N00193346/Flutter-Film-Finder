@@ -14,6 +14,26 @@ class _InputPageState extends State<InputPage> {
   // search bar before entering any text the app will crash
   late String userInput = '';
 
+  //Method to display an alert message
+  Future<void> searchError() async {
+    return showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text('Please enter text into the search bar'),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Ok'))
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,12 +60,18 @@ class _InputPageState extends State<InputPage> {
           TextButton(
             //When the search button is pressed, the user's input will be pushed onto the loading screen
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) {
-                  return LoadingScreen(userInput);
-                }),
-              );
+              //If the search bar is empty, alert the user
+              if (userInput == '') {
+                searchError();
+                //Else push the data in the search bar to the loading screen
+              } else {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) {
+                    return LoadingScreen(userInput);
+                  }),
+                );
+              }
             },
             child: Text('SEARCH'),
             style: TextButton.styleFrom(

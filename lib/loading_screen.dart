@@ -22,11 +22,12 @@ class _LoadingScreenState extends State<LoadingScreen> {
   Future getFilm(userInput) async {
     //Creating a new film object
     FilmData film = FilmData(userInput);
-    //Using get film data method to store
+    //Using get filmData method to store data from JSON
     var filmData = await film.getFilmData();
 
-    //Pushing the film data to the results page
-    if (filmData != null) {
+    //If there is more than zero results returned from the API
+    //Push the film data to the results page
+    if (filmData['total_results'] > 0) {
       Navigator.push(context, MaterialPageRoute(builder: (context) {
         return ResultsPage(filmData);
       }));

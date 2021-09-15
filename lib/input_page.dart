@@ -1,8 +1,7 @@
 import 'package:film_finder/constants.dart';
 import 'package:film_finder/loading_screen.dart';
-import 'package:film_finder/results_page.dart';
+
 import 'package:flutter/material.dart';
-import 'package:film_finder/results_page.dart';
 
 class InputPage extends StatefulWidget {
   @override
@@ -10,7 +9,10 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-  late String userInput;
+  //The user's input needs to be initialized as an empty string
+  // because if the user accidentally presses the
+  // search bar before entering any text the app will crash
+  late String userInput = '';
 
   @override
   Widget build(BuildContext context) {

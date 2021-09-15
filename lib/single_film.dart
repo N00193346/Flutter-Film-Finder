@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'constants.dart';
 
 class SingleFilm extends StatelessWidget {
   SingleFilm(this.title, this.releaseDate, this.description, this.poster);
@@ -28,15 +29,18 @@ class SingleFilm extends StatelessWidget {
                   '$title',
                   style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                 ),
+                kSpace,
                 //Film Image/Poster
                 Image.network(
                   '$imageUrl' + '$poster',
                   height: 350,
                 ),
+                kSpace,
                 Text(
                   'Release Date: $releaseDate',
                   style: TextStyle(fontSize: 24),
                 ),
+                kSpace,
                 Text('$description')
               ],
             ),

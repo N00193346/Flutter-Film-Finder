@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:film_finder/film.dart';
 import 'package:film_finder/single_film.dart';
 
+import 'constants.dart';
+
 class ResultsPage extends StatefulWidget {
   ResultsPage(this.filmData);
 
@@ -50,58 +52,83 @@ class _ResultsPageState extends State<ResultsPage> {
                 ? 0
                 : widget.filmData['results'].length,
             itemBuilder: (BuildContext context, i) {
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        //Pushing all the films information to the next page if the user taps on the film
-                        return SingleFilm(
-                            widget.filmData['results'][i]['original_title'],
-                            widget.filmData['results'][i]['release_date'],
-                            widget.filmData['results'][i]['overview'],
-                            widget.filmData['results'][i]['poster_path']);
-                      },
-                    ),
-                  );
-                },
-                child: Column(children: [
-                  //Checking to see if each variable is null before passing the data
-                  //Title
-                  widget.filmData['results'][i]['original_title'] != null
-                      ? Text(widget.filmData['results'][i]['original_title'],
-                          style: TextStyle(color: Colors.white, fontSize: 30))
-                      : Text('null value',
-                          style: TextStyle(color: Colors.white, fontSize: 30)),
-                  //Release Data
-                  //The release date in the JSON doesn't contain any nulls, only empty strings
-                  widget.filmData['results'][i]['release_date'] != ''
-                      ? Text(
-                          '(' +
-                              widget.filmData['results'][i]['release_date']
-                                  .substring(0, 4) +
-                              ')',
-                          style: TextStyle(color: Colors.white, fontSize: 32))
-                      : Text('null value'),
-                  //Image
-                  widget.filmData['results'][i]['poster_path'] != null
-                      //The first and second parts of the url need to be concatenated to display the image
-                      ? Image.network(
-                          '$imageUrl' +
-                              widget.filmData['results'][i]['poster_path'],
-                          height: 350,
-                        )
-                      //This sized box will be used if a film has no image attached to it
-                      : SizedBox(
-                          height: 350,
-                          child: Text('No related image'),
-                        ),
-                  //This sized box will be used to create some space between the film displayed
-                  SizedBox(
-                    height: 30,
-                  )
-                ]),
+              return Card(
+                elevation: 5,
+                color: Colors.indigo,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          //Pushing all the films information to the next page if the user taps on the film
+                          return SingleFilm(
+                              widget.filmData['results'][i]['original_title'],
+                              widget.filmData['results'][i]['release_date'],
+                              widget.filmData['results'][i]['overview'],
+                              widget.filmData['results'][i]['poster_path']);
+                        },
+                      ),
+                    );
+                  },
+                  child: Column(children: [
+                    //Checking to see if each variable is null before passing the data
+                    //Title
+                    widget.filmData['results'][i]['original_title'] != null
+                        ? Text(widget.filmData['results'][i]['original_title'],
+                            style: TextStyle(color: Colors.white, fontSize: 30))
+                        : Text('No Title found',
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 30)),
+                    //Sized box to space out widgets
+                    kSmallSpace,
+                    //Release Data
+                    //The release date in the JSON doesn't contain any nulls, only empty strings
+                    widget.filmData['results'][i]['release_date'] != '' &&
+                            widget.filmData['results'][i]['release_date'] !=
+                                null
+                        ? Text(
+                            '(' +
+                                widget.filmData['results'][i]['release_date']
+                                    .substring(0, 4) +
+                                ')',
+                            style: TextStyle(color: Colors.white, fontSize: 32))
+                        : Text('**No release date found**',
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 20)),
+                    kSmallSpace,
+                    //Image
+                    widget.filmData['results'][i]['poster_path'] != null
+                        //The first and second parts of the url need to be concatenated to display the image
+                        ? Image.network(
+                            '$imageUrl' +
+                                widget.filmData['results'][i]['poster_path'],
+                            height: 350,
+                          )
+                        //This sized box will be used if a film has no image attached to it
+                        : SizedBox(
+                            height: 350,
+                            child: Container(
+                              color: Colors.black,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'No related image',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 30),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                    //This sized box will be used to create some space between the film displayed
+                    SizedBox(
+                      height: 30,
+                    )
+                  ]),
+                ),
               );
             },
           ),
@@ -110,31 +137,6 @@ class _ResultsPageState extends State<ResultsPage> {
     );
   }
 }
-
-// Attempt using future builder
-// child: FutureBuilder(
-// future: getFilms(),
-// builder: (BuildContext context, AsyncSnapshot snapshot) {
-// return ListView.builder(
-// //Check to see if there is any results, if there is, loop as long as the results
-// itemCount: snapshot.data == null ? 0 : snapshot.data.length,
-// itemBuilder: (BuildContext context, i) {
-// return GestureDetector(
-// onTap: () {
-// Navigator.push(
-// context,
-// MaterialPageRoute(
-// builder: (context) {
-// //Pushing all the films information to the next page if the user press on the movie
-// return SingleFilm(
-// widget.filmData['results'][i]['original_title'],
-// widget.filmData['results'][i]['release_date'],
-// widget.filmData['results'][i]['overview'],
-// widget.filmData['results'][i]['poster_path']);
-// },
-// ),
-// );
-// },
 
 //A method that loops through the API results, creates a film object and add the results to a film array
 //This method is is not need with a ListView builder

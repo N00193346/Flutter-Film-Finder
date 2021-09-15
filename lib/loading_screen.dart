@@ -16,6 +16,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   void initState() {
     super.initState();
+
     var filmData = getFilm(widget.userInput);
   }
 
@@ -39,6 +40,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
+        //Icon to display while the results are loading
         child: SpinKitDoubleBounce(
           color: Colors.white,
           size: 100,

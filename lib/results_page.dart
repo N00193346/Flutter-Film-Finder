@@ -29,8 +29,8 @@ class _ResultsPageState extends State<ResultsPage> {
 
   @override
   Widget build(BuildContext context) {
-    //Using WillPopScope to make sure the user cannot return to the loading page
-    //The scope will pop over the loading page and return to the search page
+    //Using WillPopScope widget to make sure the user cannot return to the loading page
+    //The widget will pop over the loading page and return to the search page
     return WillPopScope(
       onWillPop: () async {
         int count = 0;
@@ -58,7 +58,7 @@ class _ResultsPageState extends State<ResultsPage> {
                       builder: (context) {
                         //Pushing all the films information to the next page if the user taps on the film
                         return SingleFilm(
-                            widget.filmData['results'][i]['poster_path'],
+                            widget.filmData['results'][i]['original_title'],
                             widget.filmData['results'][i]['release_date'],
                             widget.filmData['results'][i]['overview'],
                             widget.filmData['results'][i]['poster_path']);

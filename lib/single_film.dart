@@ -19,24 +19,27 @@ class SingleFilm extends StatelessWidget {
           padding: EdgeInsets.all(20),
           alignment: Alignment.center,
           //Creating a column to display the film data to the user
-          child: Column(
-            children: [
-              //Film Title
-              Text(
-                '$title',
-                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-              ),
-              //Film Image/Poster
-              Image.network(
-                '$imageUrl' + '$poster',
-                height: 350,
-              ),
-              Text(
-                'Release Date: $releaseDate',
-                style: TextStyle(fontSize: 24),
-              ),
-              Text('$description')
-            ],
+          //Wrapped in a SingleChildScrollView to fix overflow
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                //Film Title
+                Text(
+                  '$title',
+                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                ),
+                //Film Image/Poster
+                Image.network(
+                  '$imageUrl' + '$poster',
+                  height: 350,
+                ),
+                Text(
+                  'Release Date: $releaseDate',
+                  style: TextStyle(fontSize: 24),
+                ),
+                Text('$description')
+              ],
+            ),
           ),
         ));
   }

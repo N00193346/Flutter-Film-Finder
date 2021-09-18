@@ -20,6 +20,28 @@ class _LoadingScreenState extends State<LoadingScreen> {
     var filmData = getFilm(widget.userInput);
   }
 
+  //Method to display an alert message
+  Future<void> searchError() async {
+    return showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text('Could not find any films related to "' +
+                widget.userInput +
+                '", please try again'),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Ok'))
+            ],
+          );
+        });
+  }
+
   Future getFilm(userInput) async {
     //Creating a new film object
     FilmData film = FilmData(userInput);
@@ -34,6 +56,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       }));
     } else {
       Navigator.pop(context);
+      searchError();
     }
   }
 
